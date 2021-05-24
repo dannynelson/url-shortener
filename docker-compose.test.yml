@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  tests:
+    image: 'buildkite/puppeteer:latest'
+    command: sh -c "npm install && npm run test"
+    volumes:
+      - './integration-tests:/integration-tests'
+      - './screenshots:/screenshots'
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    tty: true
+    environment:
+      - REDIS_HOST=redis-server
+    depends_on:
+      - redis-server
+
+  redis-server:
+    image: 'redis'

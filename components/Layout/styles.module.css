@@ -1,0 +1,16 @@
+.urlShortenerApp {
+  width: 50%;
+  margin: auto;
+  padding-bottom: 250px;
+}
+
+@media screen and (max-width: 1000px) {
+  .urlShortenerApp {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .urlShortenerApp {
+    width: 90%;
+  }
+}

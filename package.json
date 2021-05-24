@@ -1,0 +1,62 @@
+{
+  "name": "stord_technical_assessment",
+  "engines": {
+    "node": "^14.15.5"
+  },
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev -p 8080",
+    "build": "next build",
+    "start": "next start -p 8080",
+    "type-check": "tsc",
+    "lint": "npx eslint . --ext .ts,.tsx",
+    "test:unit": "jest --config=jest.config.js --coverage --runInBand --forceExit",
+    "test:e2e": "npm run build && jest --config=tests/jest.config.js --runInBand",
+    "test": "npm run lint && npm run test:unit && npm run test:e2e",
+    "redis": "docker run -p 6379:6379 redis"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "md5": "^2.3.0",
+    "next": "^10.2.3",
+    "next-absolute-url": "^1.2.2",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.6.0",
+    "react-dom": "^17.0.1",
+    "redis": "^3.1.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^13.1.9",
+    "@types/expect-puppeteer": "^4.4.5",
+    "@types/faker": "^5.5.5",
+    "@types/jest": "^26.0.23",
+    "@types/jest-environment-puppeteer": "^4.4.1",
+    "@types/md5": "^2.3.0",
+    "@types/node": "^12.12.21",
+    "@types/node-fetch": "^2.5.10",
+    "@types/puppeteer": "^5.4.3",
+    "@types/react": "^17.0.8",
+    "@types/react-dom": "^17.0.1",
+    "@types/redis": "^2.8.29",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "eslint": "^7.27.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "faker": "^5.5.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "jest-puppeteer": "^5.0.4",
+    "msw": "^0.29.0",
+    "next-test-api-route-handler": "^1.2.24",
+    "node-fetch": "^2.6.1",
+    "prettier": "2.3.0",
+    "puppeteer": "^9.1.1",
+    "ts-jest": "^26.5.6",
+    "typescript": "4.0"
+  },
+  "license": "MIT"
+}

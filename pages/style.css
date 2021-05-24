@@ -1,0 +1,12 @@
+html,
+body,
+#__next {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+body {
+  text-align: center;
+  background-color: #f5f5f5;
+}
