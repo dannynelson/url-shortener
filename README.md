@@ -4,6 +4,8 @@ A URL shortener app, similar to bitly or TinyURL.
 
 ## Usage
 
+Make sure you have [docker installed](https://docs.docker.com/get-docker/).
+
 Build and start the server, then navigate to http://localhost:8080:
 
 ```
