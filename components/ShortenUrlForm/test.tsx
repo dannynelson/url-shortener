@@ -33,5 +33,25 @@ describe('ShortenUrlForm', () => {
     userEvent.click(screen.getByRole('button'));
     expect(onSubmit).toBeCalledTimes(0);
     expect(screen.getByRole('textbox')).toHaveClass('is-invalid');
+    expect(
+      screen.getByText('Please enter a valid http URL')
+    ).toBeInTheDocument();
+  });
+
+  it('marks textbox invalid if onSubmit rejects', async () => {
+    const promise = Promise.reject(new Error('Failed to fetch'));
+    const onSubmit = jest.fn(() => promise);
+    render(<ShortenUrlForm onSubmit={onSubmit} />);
+    userEvent.type(screen.getByRole('textbox'), 'https://www.google.com');
+    expect(screen.getByRole('textbox')).not.toHaveClass('is-invalid');
+    userEvent.click(screen.getByRole('button'));
+    expect(onSubmit).toBeCalledTimes(1);
+    await expect(act(() => promise)).rejects.toThrow('Failed to fetch');
+    expect(screen.getByRole('textbox')).toHaveClass('is-invalid');
+    expect(
+      screen.getByText(
+        'Failed to submit. Check your network connection and try again.'
+      )
+    ).toBeInTheDocument();
   });
 });

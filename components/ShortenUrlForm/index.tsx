@@ -17,8 +17,10 @@ type Props = {
 const ShortenUrlForm: React.FC<Props> = ({ onSubmit }: Props) => {
   const [inputValue, setInputValue] = useState('');
   const [submitState, setSubmitState] = useState(FormState.New);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setValidationError(null);
     setSubmitState(FormState.New);
     setInputValue(event.target.value);
   }
@@ -26,11 +28,18 @@ const ShortenUrlForm: React.FC<Props> = ({ onSubmit }: Props) => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!isValidHttpUrl(inputValue)) {
+      setValidationError('Please enter a valid http URL');
       setSubmitState(FormState.Submitted);
       return;
     }
     setSubmitState(FormState.Submitting);
-    await onSubmit(inputValue);
+    try {
+      await onSubmit(inputValue);
+    } catch (err) {
+      setValidationError(
+        'Failed to submit. Check your network connection and try again.'
+      );
+    }
     setSubmitState(FormState.Submitted);
   }
 
@@ -44,7 +53,7 @@ const ShortenUrlForm: React.FC<Props> = ({ onSubmit }: Props) => {
           value={inputValue}
           onChange={handleChange}
           isInvalid={
-            submitState === FormState.Submitted && !isValidHttpUrl(inputValue)
+            submitState === FormState.Submitted && validationError != null
           }
         />
         <InputGroup.Append>
@@ -60,7 +69,7 @@ const ShortenUrlForm: React.FC<Props> = ({ onSubmit }: Props) => {
           className={styles.invalidFeedback}
           type="invalid"
         >
-          Please enter a valid http URL
+          {validationError}
         </Form.Control.Feedback>
       </InputGroup>
     </Form>
